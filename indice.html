@@ -1,0 +1,121 @@
+
+<html>
+<head>
+  <title>Filtrar por dominio de correo electrónico</title>
+  
+</head>
+<body>
+  <header>
+     <div class="logo">BSZ</div>
+
+<!-- Divs para simular gotas de sangre -->
+  <div class="blood-drop" style="left: 20%;" data-content="1"></div>
+  <div class="blood-drop" style="left: 40%; animation-delay: 1s;" data-content="0"></div>
+  <div class="blood-drop" style="left: 60%; animation-delay: 2s;" data-content="1"></div>
+  <div class="blood-drop" style="left: 80%; animation-delay: 0.5s;" data-content="0"></div>
+
+    
+  </header>
+  <div class="rectangulo">
+    
+  <h1>Filtrar por dominio de correo electrónico</h1>
+  <label for="dominioSelect">Seleccionar dominio:</label>
+  <select id="dominioSelect">
+    <option value="hotmail.com">Hotmail</option>
+    <option value="gmail.com">Gmail</option>
+    <option value="yahoo.com">Yahoo</option>
+     <option value="live.fr">live.fr</option>
+    <!-- Puedes agregar más dominios aquí si es necesario -->
+  </select>
+  <br><br>
+ <label for="listaCorreos">Ingrese la lista de correos electrónicos (presione Enter para separar):</label><br>
+  <textarea id="listaCorreos" rows="6" cols="50" placeholder="
+Ejemplo poner asi el combo:
+correo1@hotmail.com:ushjsd
+correo2@gmail.com:sjifijids
+correo3@yahoo.com:naruto271
+correo4@live.fr:9ie002e0"
+></textarea><br><br>
+  <button onclick="filtrarPorDominio()">Filtrar</button>
+  <button onclick="descargarArchivo()">Descargar como archivo .txt</button>
+  <button onclick="limpiarResultados()">Limpiar resultados</button>
+    
+  <br><br>
+  <table id="tablaResultados" border="1">
+    <thead>
+      <tr>
+        <th>Correos electrónicos filtrados</th>
+      </tr>
+    </thead>
+    <tbody id="resultados">
+    </tbody>
+  </table>
+</div>
+  
+  <div class="cuadrado">
+    <a href="https://t.me/BSZ_CRACKING"> <!-- Reemplaza 'tu_pagina_destino.html' con tu página de destino -->
+      <img src="https://logos-world.net/wp-content/uploads/2021/03/Telegram-Logo-700x394.png" > <!-- Reemplaza 'ruta/de/tu/imagen.jpg' con la ruta de tu imagen -->
+    </a>
+  </div>
+  
+  
+  <script>
+    function filtrarPorDominio() {
+      // Obtenemos el valor del dominio seleccionado
+      const dominioDeseado = document.getElementById('dominioSelect').value.trim().toLowerCase();
+
+      // Obtenemos la lista de correos electrónicos y los convertimos en un array
+      const listaCorreosTexto = document.getElementById('listaCorreos').value.trim().replace(/\n/g, ' ');
+      const listaCorreos = listaCorreosTexto.split(' ').map(correo => correo.trim());
+
+      // Filtrar por el dominio deseado
+      const correosFiltrados = listaCorreos.filter(correo => correo.toLowerCase().includes("@" + dominioDeseado));
+
+      // Mostrar los resultados en una tabla
+      const resultadosTabla = document.getElementById('resultados');
+      resultadosTabla.innerHTML = '';
+      
+      if (correosFiltrados.length > 0) {
+        correosFiltrados.forEach(correo => {
+          const row = document.createElement('tr');
+          const cell = document.createElement('td');
+          cell.textContent = correo;
+          row.appendChild(cell);
+          resultadosTabla.appendChild(row);
+        });
+      } else {
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.textContent = 'No se encontraron correos electrónicos con el dominio ' + dominioDeseado + '.';
+        row.appendChild(cell);
+        resultadosTabla.appendChild(row);
+      }
+    }
+
+    function descargarArchivo() {
+      const tabla = document.getElementById('tablaResultados');
+      const rows = tabla.getElementsByTagName('tr');
+      let contenidoArchivo = '';
+
+      for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        if (cells.length > 0) {
+          contenidoArchivo += cells[0].innerText + '\n';
+        }
+      }
+
+      const enlaceDescarga = document.createElement('a');
+      const archivo = new Blob([contenidoArchivo], { type: 'text/plain' });
+      enlaceDescarga.href = URL.createObjectURL(archivo);
+      enlaceDescarga.download = 'correos_filtrados.txt';
+      enlaceDescarga.click();
+    }
+    
+     function limpiarResultados() {
+      document.getElementById('resultados').innerHTML = '';
+      document.getElementById('listaCorreos').value = '';
+    }
+    
+  </script>
+</body>
+</html>
