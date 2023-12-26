@@ -24,5 +24,5 @@ si gustan probarlo en pagina web :
 https://appbsz.crearforo.net/h75-filtrador-bsz	
 ## Como se visualiza ahora el codigo :
 ![image](https://github.com/AvastrOficial/Filtrador-de-dominios-de-correos-bsz/assets/91764815/9f413c16-4ffd-458d-a856-657836eff9a0)
-Vercion 0.0.1
+Vercion 0.0.2
 se agregaran mas dominios proximamente 
